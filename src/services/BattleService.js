@@ -48,6 +48,10 @@ class BattleService{
         animationsService.shake('charImg'+target.id)
       })
       target.hp -= dmg
+      let undying = target.abilties.find(a => a.name == 'undying')
+      if(undying){
+        
+      }
     })
     this.animationDelay = 750
     if(attacker instanceof MonsterFactory){

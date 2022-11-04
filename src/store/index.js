@@ -15,7 +15,7 @@ const store = createStore({
         {name: 'giant rat', actions: 1, strength: 1, hp: 7, loot: {gold: 2, items: [], chance: []}, exp: 25, img: 'giant-rat'},
         {name: 'kuo toa', actions: 1, strength: 2, hp: 18, loot: {gold: 5, items: ['spear', 'sticky shield'], chance: [50, 25]}, exp: 50, img: 'kuo-toa'},
         {name: 'seedling', actions: 1, strength: 2, hp: 8, vulnerabilities: ['fire'], thorns: 1, loot: {gold: 5, items: [], chance: []}, exp: 50, img: 'seedling'},
-        {name: 'skeleton', actions: 1, strength: 4, hp: 9, immunities: ['necrotic', 'psychic', 'petrify', 'poison'], vulnerabilities: ['radiant'], loot: {gold: 5, items: ['shortsword', 'shortbow'], chance: [75, 75]}, exp: 50, img: 'undead-barbarian'},
+        {name: 'skeleton', actions: 1, strength: 4, hp: 9, immunities: ['necrotic', 'psychic', 'petrify', 'poison'], vulnerabilities: ['radiant'], loot: {gold: 5, items: ['shortsword', 'shortbow'], chance: [75, 75]}, exp: 50, img: 'undead-barbarian', abilities: [{name: 'undying', effect: ['hp'], value: [1], chance: 100}]},
         {name: 'kobold', actions: 1, strength: 3, hp: 12, resistances: ['fire'], physicalResistance: 10, loot: {gold: 5, items: ['spear', 'shield', 'padded armor'], chance: [75, 10, 10]}, exp: 50, img: 'kobold'},
         ],
         //1
@@ -326,7 +326,8 @@ const store = createStore({
       {name: 'quickening heal', level: 4, effect: ['hp'], value: [10], temp: false, buff: true, classType: 'monk', uses: 1, baseUses: 1, description: 'Restore some hp'}, 
       {name: 'song of rest', level: 2, effect: ['hp'], value: [3], temp: false, buff: true, areaEffect: true, classType: 'bard', uses: 1, baseUses: 1, description: 'Restores some of your party\'s hp'}, 
       {name: 'sneak attack', level: 1, effect: ['strength'], value: [4], buff: true, classType: 'rogue', uses: 1, baseUses: 1, description: 'Increases strength'}, 
-      {name: 'cunning action', level: 2, effect: ['dodge'], value: [10], buff: true, classType: 'rogue', uses: 1, baseUses: 1, description: 'Increases dodge chance'}, 
+      {name: 'cunning action', level: 2, effect: ['dodge'], value: [10], buff: true, classType: 'rogue', uses: 1, baseUses: 1, description: 'Increases dodge chance'},
+      // {name: 'undying', level: 1, effect: ['hp'], value: [1], temp: false, buff: true, classType: 'warlock', uses: 1, baseUses: 1, description: 'Chance when hp reaches 0 to be set to 1 instead'} 
     ],
     spells: [
       //cantrips
