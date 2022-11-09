@@ -4,6 +4,7 @@ import { MonsterFactory } from "../models/MonsterFactory"
 import { gameService } from "./GameService"
 import { useToast } from "vue-toastification"
 import { monstersService } from "./MonstersService"
+import store from "@/store/index.js"
 
 class BattleService{
   toast = useToast()
@@ -48,14 +49,31 @@ class BattleService{
         animationsService.shake('charImg'+target.id)
       })
       target.hp -= dmg
-      let undying = target.abilties.find(a => a.name == 'undying')
-      if(undying){
-        
+      if(target.hp <= 0){
+        let undying = target.abilities.find(a => a.name == 'undying')
+        if(undying){
+        this.attemptUndying(attacker, target)
+        }
       }
     })
     this.animationDelay = 750
     if(attacker instanceof MonsterFactory){
       monstersService.triggerAbilities(attacker, target)
+    }
+  }
+  attemptUndying(attacker, target){
+    debugger
+    const maxHP = target.baseHp
+    const currentHP = target.hp
+    let reviveChance = 5
+    if(attacker.dmgType == 'radiant'){return}
+    if(currentHP == 0){
+      reviveChance = 95
+    } else if(currentHP/maxHP < 1){
+        reviveChance = (currentHP/maxHP)*100
+      }
+    if(Math.floor(Math.random())*100 < reviveChance) {
+      target.hp = 1
     }
   }
   thorns(attacker, target){
