@@ -60,6 +60,10 @@ class BattleService{
       monstersService.triggerAbilities(attacker, target)
     }
   }
+  revive(target){
+    setTimeout(target.hp = 1, 700)
+    this.toast.warning(`${target.name} gets back up!`)
+  }
   attemptUndying(attacker, target){
     const maxHP = target.baseHp
     const currentHP = target.hp
@@ -71,7 +75,7 @@ class BattleService{
         reviveChance = (currentHP/maxHP)*100
       }
     if(Math.floor(Math.random())*100 < reviveChance) {
-      target.hp = 1
+      this.revive(target)
     }
   }
   thorns(attacker, target){
