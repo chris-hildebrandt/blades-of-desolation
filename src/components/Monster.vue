@@ -2,7 +2,7 @@
   <HpBar :hp="monster.hp" :baseHp="monster.baseHp" :unknown="unknown" />
 <div>
   <div class="position-absolute hit" :id="'hit'+monster.id"></div>
-  <img :id="'monster'+monster.id" v-if="monster.hp > 0" class="img-fluid monster-img attack-cursor" :class="monster.statusEffects.map(e => e.negative ? e.name : '').join(' ')" @click="attackMonster(monster)" :src="img" />
+  <img :id="'monster'+monster.id" v-if="monster.hp > 0" class="img-fluid monster-img attack-cursor" :class="monster.statusEffects.map(e => e.negative ? e.name : '').join(' ')" @click="attackMonster(monster)" :src="img" draggable="false"/>
   <img v-else class="img-fluid monster-img" :src="deadImg" />
 </div>
 </template>
@@ -38,12 +38,12 @@ export default {
   },
   methods: {
     attackMonster(monster){
-      $(document).addClass('disable-user-events')
+      $('#monster' + monster.id).Attr('disabled', true)
       characterService.autoSelect()
       animationsService.shake('monster'+monster.id)
       battleService.handleAttack(this.$store.state.selected, monster)
       characterService.autoSelect()
-      setTimeout(()=> {$(document).removeClass('disable-user-events')}, 1600)
+      setTimeout(()=> {$('#monster' + monster.id).Attr('disabled', false)}, 2500)
     },
   }
 }
