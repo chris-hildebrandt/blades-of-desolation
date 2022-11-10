@@ -36,7 +36,7 @@ import router from "@/router"
 import { characterService } from "@/services/CharacterService"
 import { useToast } from "vue-toastification"
 import { useRoute } from "vue-router"
-import { sleep } from "@/utils/sleep"
+// import { sleep } from "@/utils/sleep"
 
 
 export default {
@@ -71,15 +71,17 @@ export default {
     },
     monstersWithHp: function(){
       const toast = useToast()
-      sleep(1500).then(()=>{
-        if(this.monstersWithHp < 1 && this.charactersWithHp > 0){
+      setTimeout(()=>{
+        let monstersWithHp = $store.state.monsters.filter(m => m.hp > 0).length
+        console.log(monstersWithHp)
+        if(monstersWithHp < 1 && this.charactersWithHp > 0){
           $store.state.victory = true
           clearInterval($store.state.timerInterval)
           $store.state.timer = 10000*$store.state.player.characters.length
           gameService.victory()
           toast.success('Victory!')
         }
-      })
+      }, 1500)
     }
   },
   setup(){
