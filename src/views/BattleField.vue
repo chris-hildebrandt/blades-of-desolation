@@ -81,7 +81,7 @@ export default {
           gameService.victory()
           toast.success('Victory!')
         }
-      }, 1300)
+      }, 1000)
     }
   },
   setup(){

@@ -4,6 +4,7 @@ import { MonsterFactory } from "../models/MonsterFactory"
 import { gameService } from "./GameService"
 import { useToast } from "vue-toastification"
 import { monstersService } from "./MonstersService"
+import $store from '@/store/index.js'
 
 class BattleService{
   toast = useToast()
@@ -47,12 +48,11 @@ class BattleService{
       sleep(200).then(()=>{
         animationsService.shake('charImg'+target.id)
       })
-      target.hp -= dmg
-      if(target.hp <= 0){
-        if(target.undying > 0){
-        this.attemptUndying(attacker, target)
-        }
+      if((target.hp - dmg) <= 0){
+        $store.state.disableClick = true
       }
+      target.hp -= dmg
+      this.attemptUndying(attacker, target)
     })
     this.animationDelay = 750
     if(attacker instanceof MonsterFactory){
@@ -62,28 +62,31 @@ class BattleService{
   revive(target){
     target.hp = 1
     this.toast.warning(`${target.name} gets back up!`)
+    setTimeout(()=>{$store.state.disableClick = false}, 1000)
   }
 
-  // only disable when hitpoints reach 0, then reenable after they revive.
   attemptUndying(attacker, target){
-    // const maxHP = target.baseHp
-    // const currentHP = target.hp
-    // let reviveChance = 5
-    // if(attacker.dmgType == 'radiant'){return}
-    // if(currentHP == 0){
-    //   reviveChance = target.undying
-    // } else if((currentHP + maxHP)/maxHP < 1){
-    //     let newReviveChance = ((currentHP + maxHP)/maxHP)*100
-    //     reviveChance = newReviveChance < 5 ? 5 : newReviveChance
-    //     reviveChance = reviveChance > target.undying ? target.undying : reviveChance
-    //   }
-    //   console.log('if rolled number is less than this: revive',reviveChance)
-    //   console.log(target.hp)
-    //   let rolledNumber = Math.floor(Math.random()*100)
-    //   console.log('rolled number',rolledNumber)
-    // if(rolledNumber < reviveChance) {
+    let reviveChance = 5
+    if(!target.undying || target.hp > 0){ 
+      $store.state.disableClick = false
+      return
+    }
+    if(attacker.dmgType == 'radiant'){return}
+    if(target.hp == 0){
+      reviveChance = target.undying
+    } else if((target.hp + target.baseHp)/target.baseHp < 1){
+        let newReviveChance = ((target.hp + target.baseHp)/target.baseHp)*100
+        reviveChance = newReviveChance < 5 ? 5 : newReviveChance
+        reviveChance = reviveChance > target.undying ? target.undying : reviveChance
+      }
+      console.log('if rolled number is less than this: revive',reviveChance)
+      console.log('current hp',target.hp)
+      console.log('base hp',target.baseHp)
+      let rolledNumber = Math.floor(Math.random()*100)
+      console.log('rolled number',rolledNumber)
+    if(rolledNumber < reviveChance) {
       sleep(1000).then(()=>{this.revive(target)})
-    // }
+    }
   }
   thorns(attacker, target){
       if(target.thorns <= 0 || attacker.dmgType == 'range' || attacker['isSpell']){
@@ -94,6 +97,7 @@ class BattleService{
       dmg = this.resistance({strength: dmg, dmgType: target.dmgType}, attacker)
       dmg = this.vulnerable({strength: dmg, dmgType: target.dmgType}, attacker)
       attacker.hp -= dmg
+      this.attemptUndying(attacker, target)
       animationsService.fadeOutUp('hit'+attacker.id, dmg, '-', target.dmgType)
   }
   dodge(target){
