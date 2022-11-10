@@ -4,7 +4,6 @@ import { MonsterFactory } from "../models/MonsterFactory"
 import { gameService } from "./GameService"
 import { useToast } from "vue-toastification"
 import { monstersService } from "./MonstersService"
-import store from "@/store/index.js"
 
 class BattleService{
   toast = useToast()
@@ -62,7 +61,6 @@ class BattleService{
     }
   }
   attemptUndying(attacker, target){
-    debugger
     const maxHP = target.baseHp
     const currentHP = target.hp
     let reviveChance = 5
