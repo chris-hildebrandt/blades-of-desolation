@@ -71,12 +71,15 @@ class BattleService{
     if(currentHP == 0){
       reviveChance = target.undying
     } else if((currentHP + maxHP)/maxHP < 1){
-        reviveChance = ((currentHP + maxHP)/maxHP)*100
-        reviveChance = reviveChance < 5 ? 5 : reviveChance
+        let newReviveChance = ((currentHP + maxHP)/maxHP)*100
+        reviveChance = newReviveChance < 5 ? 5 : newReviveChance
+        reviveChance = reviveChance > target.undying ? target.undying : reviveChance
       }
-      console.log(reviveChance)
+      console.log('if rolled number is less than this: revive',reviveChance)
       console.log(target.hp)
-    if(Math.floor(Math.random())*100 < reviveChance) {
+      let rolledNumber = Math.floor(Math.random()*100)
+      console.log('rolled number',rolledNumber)
+    if(rolledNumber < reviveChance) {
       setTimeout(this.revive(target), 1000)
     }
   }
