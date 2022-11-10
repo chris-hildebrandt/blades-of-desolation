@@ -16,6 +16,7 @@ import { characterService } from "@/services/CharacterService"
 import { computed, onMounted } from "@vue/runtime-core"
 import 'animate.css'
 import { animationsService } from "@/services/AnimationsService"
+import $ from "jquery"
 
 export default {
   components: { HpBar },
@@ -37,10 +38,12 @@ export default {
   },
   methods: {
     attackMonster(monster){
+      $(document).addClass('disable-user-events')
       characterService.autoSelect()
       animationsService.shake('monster'+monster.id)
       battleService.handleAttack(this.$store.state.selected, monster)
       characterService.autoSelect()
+      setTimeout(()=> {$(document).removeClass('disable-user-events')}, 1600)
     },
   }
 }

@@ -216,4 +216,7 @@ nav a.router-link-exact-active {
   background-size: contain;
   background-repeat: no-repeat;
 }
+.disable-user-events{
+  user-select: none;
+}
 </style>

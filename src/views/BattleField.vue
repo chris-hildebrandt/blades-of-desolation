@@ -72,16 +72,16 @@ export default {
     monstersWithHp: function(){
       const toast = useToast()
       setTimeout(()=>{
-        let monstersWithHp = $store.state.monsters.filter(m => m.hp > 0).length
-        console.log(monstersWithHp)
-        if(monstersWithHp < 1 && this.charactersWithHp > 0){
+        let monstersAlive = $store.state.combatMonsters.filter(m => m.hp > 0).length
+        console.log(monstersAlive)
+        if(monstersAlive < 1 && this.charactersWithHp > 0){
           $store.state.victory = true
           clearInterval($store.state.timerInterval)
           $store.state.timer = 10000*$store.state.player.characters.length
           gameService.victory()
           toast.success('Victory!')
         }
-      }, 1500)
+      }, 1300)
     }
   },
   setup(){
