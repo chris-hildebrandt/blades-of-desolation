@@ -3,14 +3,14 @@
     <div class="row justify-content-center align-items-center h-50 bg-battle-img" :style="'background-image: url('+bgImg+')'">
       <div class="col-4 col-md-2" v-for="monster in monsters" :key="monster.id">
         <div class="position-absolute hit" :id="'hit'+monster.id"></div>
-        <div v-if="monstersWithHp < 1">
+        <div v-if="victory">
           <LootMonster :monster="monster" />
         </div>
         <div v-else>
           <EnemyMonster :monster="monster" />
         </div>
       </div>
-      <div v-if="monstersWithHp < 1">
+      <div v-if="victory">
         <button class="btn btn-warning" @click="adventureOn">Adventure On!</button>
       </div>
     </div>
@@ -36,6 +36,7 @@ import router from "@/router"
 import { characterService } from "@/services/CharacterService"
 import { useToast } from "vue-toastification"
 import { useRoute } from "vue-router"
+import { sleep } from "@/utils/sleep"
 
 
 export default {
@@ -70,17 +71,21 @@ export default {
     },
     monstersWithHp: function(){
       const toast = useToast()
-      if(this.monstersWithHp < 1 && this.charactersWithHp > 0){
-        clearInterval($store.state.timerInterval)
-        $store.state.timer = 10000*$store.state.player.characters.length
-        gameService.victory()
-        toast.success('Victory!')
-      }
+      sleep(1500).then(()=>{
+        if(this.monstersWithHp < 1 && this.charactersWithHp > 0){
+          $store.state.victory = true
+          clearInterval($store.state.timerInterval)
+          $store.state.timer = 10000*$store.state.player.characters.length
+          gameService.victory()
+          toast.success('Victory!')
+        }
+      })
     }
   },
   setup(){
     onMounted(()=>{
       let route = useRoute()
+      $store.state.victory = false
       gameService.spawnMonsters(route.params.monsterLvl, route.params.numMonsters)
       characterService.enterBattle()
       gameService.setTimer()
@@ -93,6 +98,7 @@ export default {
       charactersWithHp: computed(()=> state.characters.filter(c => c.hp > 0).length),
       bgImg: computed(()=> $store.state.locationImgList.find(l => l.includes('lvl'+($store.state.location+1)+'-bg'))),
       timer: computed(()=> $store.state.timer),
+      vitory: computed(()=> $store.state.victory)
     })
     return state
   },

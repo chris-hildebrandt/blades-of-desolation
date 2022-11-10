@@ -64,24 +64,24 @@ class BattleService{
     this.toast.warning(`${target.name} gets back up!`)
   }
   attemptUndying(attacker, target){
-    const maxHP = target.baseHp
-    const currentHP = target.hp
-    let reviveChance = 5
-    if(attacker.dmgType == 'radiant'){return}
-    if(currentHP == 0){
-      reviveChance = target.undying
-    } else if((currentHP + maxHP)/maxHP < 1){
-        let newReviveChance = ((currentHP + maxHP)/maxHP)*100
-        reviveChance = newReviveChance < 5 ? 5 : newReviveChance
-        reviveChance = reviveChance > target.undying ? target.undying : reviveChance
-      }
-      console.log('if rolled number is less than this: revive',reviveChance)
-      console.log(target.hp)
-      let rolledNumber = Math.floor(Math.random()*100)
-      console.log('rolled number',rolledNumber)
-    if(rolledNumber < reviveChance) {
-      sleep(1500).then(()=>{this.revive(target)})
-    }
+    // const maxHP = target.baseHp
+    // const currentHP = target.hp
+    // let reviveChance = 5
+    // if(attacker.dmgType == 'radiant'){return}
+    // if(currentHP == 0){
+    //   reviveChance = target.undying
+    // } else if((currentHP + maxHP)/maxHP < 1){
+    //     let newReviveChance = ((currentHP + maxHP)/maxHP)*100
+    //     reviveChance = newReviveChance < 5 ? 5 : newReviveChance
+    //     reviveChance = reviveChance > target.undying ? target.undying : reviveChance
+    //   }
+    //   console.log('if rolled number is less than this: revive',reviveChance)
+    //   console.log(target.hp)
+    //   let rolledNumber = Math.floor(Math.random()*100)
+    //   console.log('rolled number',rolledNumber)
+    // if(rolledNumber < reviveChance) {
+      sleep(1000).then(()=>{this.revive(target)})
+    // }
   }
   thorns(attacker, target){
       if(target.thorns <= 0 || attacker.dmgType == 'range' || attacker['isSpell']){
