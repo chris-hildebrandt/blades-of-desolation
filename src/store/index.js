@@ -6,7 +6,8 @@ const store = createStore({
     // all monster stats: {name: 'any', race: '', img: '', spells: [], equipment: [], dmgType: '', hp: 5, magic: 0, luck: 0, strength: 1, dodge: 0, thorns: 0, actions: 1, physicalResistance: 0, magicResistance: 0, lifeSteal:  0, absorb: '', level: 1, loot: {gold: 0, items: []}, exp: 50}
       monsters: [
         //0
-        [{name: 'goblin', actions: 1, strength: 2, hp: 7, loot: {gold: 5, items: ['dagger', 'health potion'], chance: [75, 5]}, exp: 50, dodge: 10, img: 'goblin-basic', abilities: [{name: 'hide', effect: ['dodge'], value: [5], chance: 10, buff: true}]},
+        [
+          // {name: 'goblin', actions: 1, strength: 2, hp: 7, loot: {gold: 5, items: ['dagger', 'health potion'], chance: [75, 5]}, exp: 50, dodge: 10, img: 'goblin-basic', abilities: [{name: 'hide', effect: ['dodge'], value: [5], chance: 10, buff: true}]},
         // {name: 'trickster goblin', actions: 1, strength: 1, hp: 7, loot: {gold: 5, items: ['belt of tricks', 'health potion'], chance: [75, 5]}, dmgType: 'poison', statusEffects: [{name: 'poison', effect: 'hp', value: 1, chance: 5, negative: false}], exp: 50, dodge: 20, img: 'trickster-goblin', abilities: [{name: 'hide', effect: ['dodge'], value: [5], chance: 10, buff: true}]},
         // {name: 'goblin archer', actions: 1, strength: 2, hp: 8, loot: {gold: 5, items: ['shortbow', 'health potion'], dgmType: 'ranged', chance: [75, 5]}, exp: 50, dodge: 10, img: 'goblin-archer', abilities: [{name: 'hide', effect: ['dodge'], value: [5], chance: 20, buff: true}]},
         // {name: 'goblin sorcerer', actions: 1, strength: 3, hp: 6, loot: {gold: 5, items: ['wand', 'health potion', 'cape'], dgmType: 'fire', physicalResistance: 2, chance: [50, 5, 15]}, exp: 50, dodge: 10, img: 'sorcerer-goblin', abilities: [{name: 'weaken', effect: ['strength'], value: [1], chance: 10, buff: false}, {name: 'hide', effect: ['dodge'], value: [5], chance: 10, buff: true}]},
@@ -15,7 +16,7 @@ const store = createStore({
         // {name: 'giant rat', actions: 1, strength: 1, hp: 7, loot: {gold: 2, items: [], chance: []}, exp: 25, img: 'giant-rat'},
         // {name: 'kuo toa', actions: 1, strength: 2, hp: 18, loot: {gold: 5, items: ['spear', 'sticky shield'], chance: [50, 25]}, exp: 50, img: 'kuo-toa'},
         // {name: 'seedling', actions: 1, strength: 2, hp: 8, vulnerabilities: ['fire'], thorns: 1, loot: {gold: 5, items: [], chance: []}, exp: 50, img: 'seedling'},
-        {name: 'skeleton', actions: 1, strength: 4, hp: 9, immunities: ['necrotic', 'psychic', 'petrify', 'poison'], vulnerabilities: ['radiant'], loot: {gold: 5, items: ['shortsword', 'shortbow'], chance: [75, 75]}, exp: 50, img: 'undead-barbarian', abilities: [{name: 'undying'}]},
+        {name: 'skeleton', actions: 1, strength: 3, hp: 9, immunities: ['necrotic', 'psychic', 'petrify', 'poison'], vulnerabilities: ['radiant'], loot: {gold: 5, items: ['shortsword', 'shortbow'], chance: [75, 75]}, exp: 50, img: 'undead-barbarian', undying: 50},
         // {name: 'kobold', actions: 1, strength: 3, hp: 12, resistances: ['fire'], physicalResistance: 10, loot: {gold: 5, items: ['spear', 'shield', 'padded armor'], chance: [75, 10, 10]}, exp: 50, img: 'kobold'},
         ],
         //1

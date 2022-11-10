@@ -49,8 +49,7 @@ class BattleService{
       })
       target.hp -= dmg
       if(target.hp <= 0){
-        let undying = target.abilities.find(a => a.name == 'undying')
-        if(undying){
+        if(target.undying > 0){
         this.attemptUndying(attacker, target)
         }
       }
@@ -61,7 +60,7 @@ class BattleService{
     }
   }
   revive(target){
-    setTimeout(target.hp = 1, 700)
+    target.hp = 1
     this.toast.warning(`${target.name} gets back up!`)
   }
   attemptUndying(attacker, target){
@@ -70,12 +69,15 @@ class BattleService{
     let reviveChance = 5
     if(attacker.dmgType == 'radiant'){return}
     if(currentHP == 0){
-      reviveChance = 95
-    } else if(currentHP/maxHP < 1){
-        reviveChance = (currentHP/maxHP)*100
+      reviveChance = target.undying
+    } else if((currentHP + maxHP)/maxHP < 1){
+        reviveChance = ((currentHP + maxHP)/maxHP)*100
+        reviveChance = reviveChance < 5 ? 5 : reviveChance
       }
+      console.log(reviveChance)
+      console.log(target.hp)
     if(Math.floor(Math.random())*100 < reviveChance) {
-      this.revive(target)
+      setTimeout(this.revive(target), 1000)
     }
   }
   thorns(attacker, target){

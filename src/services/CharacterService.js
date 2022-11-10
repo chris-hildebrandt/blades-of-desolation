@@ -29,7 +29,7 @@ class CharacterService{
     this.autoSelect()
   }
   attackPhase(){
-    
+    // why is this empty?
   }
   endPhase(){
     clearInterval($store.state.timerInterval)
