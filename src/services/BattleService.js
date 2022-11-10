@@ -80,7 +80,7 @@ class BattleService{
       let rolledNumber = Math.floor(Math.random()*100)
       console.log('rolled number',rolledNumber)
     if(rolledNumber < reviveChance) {
-      setTimeout(()=>{this.revive(target)}, 1000)
+      sleep(1500).then(()=>{this.revive(target)})
     }
   }
   thorns(attacker, target){
