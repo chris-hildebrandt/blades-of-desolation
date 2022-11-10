@@ -43,7 +43,6 @@ export default {
       animationsService.shake('monster'+monster.id)
       battleService.handleAttack(this.$store.state.selected, monster)
       characterService.autoSelect()
-      setTimeout(()=> {$store.state.disableClick = false}, 2000)
     },
   }
 }

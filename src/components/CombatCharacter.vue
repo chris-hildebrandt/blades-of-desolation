@@ -1,7 +1,7 @@
 <template>
   <div v-if="character.hp < 0.1">
     <strong class="d-flex dead" title="dead">{{character.name}}</strong>
-     <img :id="'charImg'+character.id" class="img-fluid w-75 events-none" :src="deadImg" @click="selectCharacter(character)">
+     <img :id="'charImg'+character.id" class="img-fluid w-75 events-none" :src="deadImg" @click="selectCharacter(character)" draggable="false">
   </div>
   <div v-else>
     <HpBar :hp="character.hp" :baseHp="character.baseHp" :selected="selected?.id == character.id" />
@@ -17,7 +17,7 @@
       {{character.name}}
     </strong>
     <div>
-      <img :id="'charImg'+character.id" :class="dynamicClasses(character, selected)" class="img-fluid w-75 click " :src="character.img" @click="selectCharacter(character)">
+      <img :id="'charImg'+character.id" :class="dynamicClasses(character, selected)" class="img-fluid w-75 click " :src="character.img" @click="selectCharacter(character)" draggable="false">
     </div>
     <div class="d-flex">
       <p class="border rounded-circle text-light h-25 w-25" title="Strength">
