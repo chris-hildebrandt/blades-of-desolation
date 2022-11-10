@@ -452,6 +452,7 @@ const store = createStore({
     timer: 60000,
     timerInterval: null,
     victory: false,
+    disableClick: false,
     selected: '',
     characterImgList: [],
     locationImgList: [],

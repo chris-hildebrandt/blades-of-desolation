@@ -63,6 +63,8 @@ class BattleService{
     target.hp = 1
     this.toast.warning(`${target.name} gets back up!`)
   }
+
+  // only disable when hitpoints reach 0, then reenable after they revive.
   attemptUndying(attacker, target){
     // const maxHP = target.baseHp
     // const currentHP = target.hp
